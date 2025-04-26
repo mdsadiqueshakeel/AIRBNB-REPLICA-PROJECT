@@ -97,6 +97,7 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 - `public/`: Contains static assets.
 - `utils/`: Contains utility functions and error handling.
 - `views/`: Contains EJS templates for rendering pages.
+- `routes/`: Contains all routes.
 - `app.js`: Main application file.
 - `schema.js`: Validation schema for listings and reviews.
 
