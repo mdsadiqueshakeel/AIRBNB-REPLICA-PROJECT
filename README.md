@@ -1,23 +1,21 @@
 # AIRBNB Replica Project
 
 ## Overview
-This project is a replica of the AIRBNB platform, built using Node.js, Express, and MongoDB. It allows users to create, read, update, and delete listings.
+This project is a replica of the AIRBNB platform, built using Node.js, Express, and MongoDB. It allows users to create, read, update, and delete listings, as well as manage user authentication and reviews.
 
 ## Features
-- User can view all listings.
-- User can create a new listing.
-- User can edit an existing listing.
-- User can delete a listing.
-- User can add and delete reviews for listings.
-- Error handling for invalid input.
+- User authentication (Sign up, Log in, Log out).
+- View all listings.
+- Create, edit, and delete listings.
+- Add and delete reviews for listings.
+- Error handling for invalid input and non-existent routes.
 
 ## Technologies Used
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- EJS (Embedded JavaScript templating)
-- Joi (for validation)
+- **Backend**: Node.js, Express, MongoDB, Mongoose.
+- **Frontend**: EJS (Embedded JavaScript templating), Bootstrap.
+- **Validation**: Joi.
+- **Authentication**: Passport.js with `passport-local` and `passport-local-mongoose`.
+- **Other Libraries**: Connect-flash, Express-session, Method-override.
 
 ## Installation
 1. Clone the repository:
@@ -36,18 +34,41 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
    ```bash
    mongod
    ```
-5. Run the application:
+5. Seed the database with sample data:
+   ```bash
+   node init/index.js
+   ```
+6. Run the application:
    ```bash
    node app.js
    ```
-6. Open your browser and go to `http://localhost:8080`.
+7. Open your browser and go to `http://localhost:8080`.
 
 ## Routes
+
+### User Authentication
+1. **Sign Up**  
+   **GET** `/signup`  
+   Renders the sign-up form.  
+
+   **POST** `/signup`  
+   Registers a new user and redirects to the listings page.
+
+2. **Log In**  
+   **GET** `/login`  
+   Renders the login form.  
+
+   **POST** `/login`  
+   Authenticates the user and redirects to the listings page.
+
+3. **Log Out**  
+   **GET** `/logout`  
+   Logs out the user and redirects to the home page.
 
 ### Listings
 1. **View all listings**  
    **GET** `/listings`  
-   Renders a page displaying all listings.
+   Displays all available listings.
 
 2. **View a single listing**  
    **GET** `/listings/:id`  
@@ -93,13 +114,18 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
    Handles all errors and displays an error message with the appropriate status code.
 
 ## Directory Structure
-- `models/`: Contains Mongoose models.
-- `public/`: Contains static assets.
-- `utils/`: Contains utility functions and error handling.
+- `models/`: Contains Mongoose models for `Listing`, `Review`, and `User`.
+- `routes/`: Contains route handlers for listings, reviews, and user authentication.
 - `views/`: Contains EJS templates for rendering pages.
-- `routes/`: Contains all routes.
+  - `layouts/`: Layout templates.
+  - `includes/`: Reusable partials like navbar and footer.
+  - `listings/`: Templates for listing-related pages.
+  - `User/`: Templates for user authentication pages.
+- `public/`: Contains static assets like CSS and JavaScript files.
+- `utils/`: Contains utility functions like error handling and async wrapper.
+- `init/`: Contains scripts for initializing the database with sample data.
 - `app.js`: Main application file.
-- `schema.js`: Validation schema for listings and reviews.
+- `schema.js`: Validation schemas for listings and reviews.
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
