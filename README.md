@@ -1,13 +1,14 @@
 # AIRBNB Replica Project
 
 ## Overview
-This project is a replica of the AIRBNB platform, built using Node.js, Express, and MongoDB. It allows users to create, read, update, and delete listings, as well as manage user authentication and reviews.
+This project is a replica of the AIRBNB platform, built using Node.js, Express, and MongoDB. It allows users to create, read, update, and delete listings, manage user authentication, and add reviews for listings. Additionally, it includes image upload functionality integrated with Cloudinary.
 
 ## Features
 - User authentication (Sign up, Log in, Log out).
 - View all listings.
 - Create, edit, and delete listings.
 - Add and delete reviews for listings.
+- Upload images for listings using Cloudinary.
 - Error handling for invalid input and non-existent routes.
 
 ## Technologies Used
@@ -15,6 +16,7 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 - **Frontend**: EJS (Embedded JavaScript templating), Bootstrap.
 - **Validation**: Joi.
 - **Authentication**: Passport.js with `passport-local` and `passport-local-mongoose`.
+- **Image Upload**: Cloudinary with Multer.
 - **Other Libraries**: Connect-flash, Express-session, Method-override.
 
 ## Installation
@@ -30,19 +32,52 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
    ```bash
    npm install
    ```
-4. Start the MongoDB server:
+4. Set up your Cloudinary account:
+   - Create a Cloudinary account at [Cloudinary](https://cloudinary.com/).
+   - Obtain your Cloudinary `CLOUD_NAME`, `API_KEY`, and `API_SECRET`.
+   - Create a `.env` file in the root directory and add the following:
+     ```env
+     CLOUDINARY_CLOUD_NAME=<your-cloud-name>
+     CLOUDINARY_API_KEY=<your-api-key>
+     CLOUDINARY_API_SECRET=<your-api-secret>
+     ```
+5. Start the MongoDB server:
    ```bash
    mongod
    ```
-5. Seed the database with sample data:
+6. Seed the database with sample data:
    ```bash
    node init/index.js
    ```
-6. Run the application:
+7. Run the application:
    ```bash
    node app.js
    ```
-7. Open your browser and go to `http://localhost:8080`.
+8. Open your browser and go to `http://localhost:8080`.
+
+## MVC Structure
+This project follows the **Model-View-Controller (MVC)** architecture:
+
+### Models
+- **User**: Handles user data and authentication using `passport-local-mongoose`.
+- **Listing**: Represents listings with fields like title, description, price, location, owner, and images (stored in Cloudinary).
+- **Review**: Represents reviews with fields like rating, comment, and author.
+
+### Views
+- **Layouts**: Shared layout templates (e.g., `boilerplate.ejs`).
+- **Includes**: Reusable partials like `navbar.ejs`, `footer.ejs`, and `flash.ejs`.
+- **Listings**: Templates for listing-related pages (e.g., `index.ejs`, `show.ejs`, `edit.ejs`, `new.ejs`).
+- **User**: Templates for user authentication pages (e.g., `login.ejs`, `signup.ejs`).
+
+### Controllers
+- **User Controller**: Handles user-related logic (e.g., sign up, login, logout).
+- **Listing Controller**: Handles listing-related logic (e.g., create, edit, delete, view listings, upload images).
+- **Review Controller**: Handles review-related logic (e.g., add, delete reviews).
+
+### Routes
+- **User Routes**: Handles routes for user authentication (`/signup`, `/login`, `/logout`).
+- **Listing Routes**: Handles routes for listings (`/listings`, `/listings/:id`, etc.).
+- **Review Routes**: Handles routes for reviews (`/listings/:id/reviews`).
 
 ## Routes
 
@@ -72,7 +107,7 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 
 2. **View a single listing**  
    **GET** `/listings/:id`  
-   Displays details of a specific listing, including its reviews.
+   Displays details of a specific listing, including its reviews and images.
 
 3. **Create a new listing (Form)**  
    **GET** `/listings/new`  
@@ -80,7 +115,7 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 
 4. **Create a new listing (Submit)**  
    **POST** `/listings`  
-   Adds a new listing to the database.  
+   Adds a new listing to the database, including uploading an image to Cloudinary.  
    **Validation:** Uses `listingSchema` to validate the input.
 
 5. **Edit a listing (Form)**  
@@ -89,12 +124,12 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 
 6. **Edit a listing (Submit)**  
    **PUT** `/listings/:id`  
-   Updates an existing listing in the database.  
+   Updates an existing listing in the database, including updating images in Cloudinary.  
    **Validation:** Uses `listingSchema` to validate the input.
 
 7. **Delete a listing**  
    **DELETE** `/listings/:id`  
-   Deletes a listing from the database, including its associated reviews.
+   Deletes a listing from the database, including its associated reviews and images from Cloudinary.
 
 ### Reviews
 1. **Add a review**  
@@ -124,6 +159,7 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 - `public/`: Contains static assets like CSS and JavaScript files.
 - `utils/`: Contains utility functions like error handling and async wrapper.
 - `init/`: Contains scripts for initializing the database with sample data.
+- `cloudConfig.js`: Configuration for Cloudinary integration.
 - `app.js`: Main application file.
 - `schema.js`: Validation schemas for listings and reviews.
 
