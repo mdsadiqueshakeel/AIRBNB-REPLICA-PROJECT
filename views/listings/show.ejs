@@ -65,7 +65,7 @@
         </form> 
             <hr>
         <% } %>
-
+        <% if(listing.reviews.length > 0) { %>
         <div>`
             <p><b>All Reviews:</b></p>
             <div class="row">
@@ -83,9 +83,31 @@
                 <% } %>
             </div>
         </div>
-    </div>
-    
+        <% } %>
+            
 
+
+    <div id="map" style="height: 400px;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const map = L.map('map').setView([<%= listing.geometry.coordinates[1] %>, <%= listing.geometry.coordinates[0] %>], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([<%= listing.geometry.coordinates[1] %>, <%= listing.geometry.coordinates[0] %>])
+        .addTo(map)
+        .bindPopup('<b><%= listing.title %></b><br><%= listing.location %>')
+        .openPopup();
+  });
+    </script>
+
+          
+        
+
+    </div>
     </div>
     <br><br>
 </body>

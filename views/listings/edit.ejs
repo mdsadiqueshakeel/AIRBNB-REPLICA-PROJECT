@@ -7,7 +7,7 @@
         <div class="col-8 offset-2">
             <br><br>
             <h3>Edit Listing</h3>
-            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="p-4 shadow-sm bg-light rounded needs-validation" novalidate>
+            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="p-4 shadow-sm bg-light rounded needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control"
@@ -22,8 +22,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image URL</label>
-                    <input name="listing[image]" value="<%= listing.image?.url || listing.image %>" type="text" class="form-control" required>
+                    <label for="image" class="form-label">Current Image</label><br>
+                    <img src="<%= orignalImageUrl %>" alt="compressedpicture" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload New Image</label>
+                    <input name="listing[image]"  type="file" class="form-control" required>
                     <div class="invalid-feedback">Image URL should be valid</div>
                 </div>
 

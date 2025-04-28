@@ -1,7 +1,7 @@
 # AIRBNB Replica Project
 
 ## Overview
-This project is a replica of the AIRBNB platform, built using Node.js, Express, and MongoDB. It allows users to create, read, update, and delete listings, manage user authentication, and add reviews for listings. Additionally, it includes image upload functionality integrated with Cloudinary.
+This project is a replica of the AIRBNB platform, built using Node.js, Express, and MongoDB. It allows users to create, read, update, and delete listings, manage user authentication, and add reviews for listings. Additionally, it includes image upload functionality integrated with Cloudinary, map integration using Leaflet, and API requests using Axios.
 
 ## Features
 - User authentication (Sign up, Log in, Log out).
@@ -9,7 +9,10 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 - Create, edit, and delete listings.
 - Add and delete reviews for listings.
 - Upload images for listings using Cloudinary.
+- Map integration with Leaflet for displaying listing locations.
+- Fetch and display coordinates using Axios.
 - Error handling for invalid input and non-existent routes.
+- Responsive and user-friendly UI built with Bootstrap and custom CSS.
 
 ## Technologies Used
 - **Backend**: Node.js, Express, MongoDB, Mongoose.
@@ -17,6 +20,8 @@ This project is a replica of the AIRBNB platform, built using Node.js, Express, 
 - **Validation**: Joi.
 - **Authentication**: Passport.js with `passport-local` and `passport-local-mongoose`.
 - **Image Upload**: Cloudinary with Multer.
+- **Map Integration**: Leaflet.js.
+- **API Requests**: Axios.
 - **Other Libraries**: Connect-flash, Express-session, Method-override.
 
 ## Installation
@@ -71,7 +76,7 @@ This project follows the **Model-View-Controller (MVC)** architecture:
 
 ### Controllers
 - **User Controller**: Handles user-related logic (e.g., sign up, login, logout).
-- **Listing Controller**: Handles listing-related logic (e.g., create, edit, delete, view listings, upload images).
+- **Listing Controller**: Handles listing-related logic (e.g., create, edit, delete, view listings, upload images, fetch coordinates).
 - **Review Controller**: Handles review-related logic (e.g., add, delete reviews).
 
 ### Routes
@@ -107,7 +112,7 @@ This project follows the **Model-View-Controller (MVC)** architecture:
 
 2. **View a single listing**  
    **GET** `/listings/:id`  
-   Displays details of a specific listing, including its reviews and images.
+   Displays details of a specific listing, including its reviews, images, and location on a map.
 
 3. **Create a new listing (Form)**  
    **GET** `/listings/new`  
@@ -115,7 +120,7 @@ This project follows the **Model-View-Controller (MVC)** architecture:
 
 4. **Create a new listing (Submit)**  
    **POST** `/listings`  
-   Adds a new listing to the database, including uploading an image to Cloudinary.  
+   Adds a new listing to the database, including uploading an image to Cloudinary and fetching coordinates using Axios.  
    **Validation:** Uses `listingSchema` to validate the input.
 
 5. **Edit a listing (Form)**  
@@ -124,12 +129,12 @@ This project follows the **Model-View-Controller (MVC)** architecture:
 
 6. **Edit a listing (Submit)**  
    **PUT** `/listings/:id`  
-   Updates an existing listing in the database, including updating images in Cloudinary.  
+   Updates an existing listing in the database, including updating images in Cloudinary and coordinates.  
    **Validation:** Uses `listingSchema` to validate the input.
 
 7. **Delete a listing**  
    **DELETE** `/listings/:id`  
-   Deletes a listing from the database, including its associated reviews and images from Cloudinary.
+   Deletes a listing from the database, including its associated reviews, images from Cloudinary, and map data.
 
 ### Reviews
 1. **Add a review**  
@@ -162,6 +167,12 @@ This project follows the **Model-View-Controller (MVC)** architecture:
 - `cloudConfig.js`: Configuration for Cloudinary integration.
 - `app.js`: Main application file.
 - `schema.js`: Validation schemas for listings and reviews.
+
+## Core Features
+- **Responsive UI**: Built with Bootstrap and custom CSS for a user-friendly experience.
+- **Map Integration**: Displays listing locations on an interactive map using Leaflet.js.
+- **Image Upload**: Allows users to upload images for listings, stored in Cloudinary.
+- **Coordinates Fetching**: Automatically fetches and displays coordinates for listings using Axios.
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
