@@ -3,11 +3,11 @@ const axios = require('axios');
 
 module.exports.index = async (req,res)=>{
     const allListings = await Listing.find({});
-    res.render("listings/index",{allListings});
+    res.render("listings/index",{ showSearch: true ,allListings});
 };
 
 module.exports.renderNewForm = (req,res)=>{
-    res.render("listings/new.ejs"); 
+    res.render("listings/new.ejs",); 
 };
 
 module.exports.showListings = async (req,res)=>{

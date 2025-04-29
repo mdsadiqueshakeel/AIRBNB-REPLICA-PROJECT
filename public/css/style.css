@@ -130,3 +130,12 @@ body{
     height: 400px;
     width: 100%;
 }
+
+.card-footer {
+    background-color: transparent;
+  }
+  .card {
+    border-radius: 1rem;
+  }
+  
+  
